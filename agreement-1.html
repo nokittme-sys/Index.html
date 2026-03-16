@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Project Classic — Пользовательское соглашение</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --white:#ffffff; --off:#f7f5f2; --ink:#111010; --ink2:#4a4640;
+  --ink3:#9a958f; --red:#c0392b; --red-s:#f0e0de; --line:#e8e4df;
+  --dark:#0e0d0d; --dark2:#1a1818;
+}
+html { scroll-behavior:smooth; }
+body { font-family:'Jost',sans-serif; background:var(--white); color:var(--ink); overflow-x:hidden; cursor:none; }
+.cur { position:fixed; top:0; left:0; z-index:9999; pointer-events:none; mix-blend-mode:multiply; }
+.cur-d { width:8px; height:8px; background:var(--red); border-radius:50%; transform:translate(-50%,-50%); }
+.cur-r { width:36px; height:36px; border:1.5px solid var(--red); border-radius:50%; transform:translate(-50%,-50%); transition:width .3s,height .3s,opacity .3s; opacity:.45; }
+@media(max-width:768px){ body{cursor:auto;} .cur{display:none;} }
+body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px; }
+
+/* HERO */
+.hero { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:0 2rem; background:var(--white); overflow:hidden; }
+.hero-rings { position:absolute; inset:0; pointer-events:none; display:flex; align-items:center; justify-content:center; }
+.ring { position:absolute; border-radius:50%; border:1px solid rgba(192,57,43,.1); animation:ringPulse 4s ease-in-out infinite; }
+.ring:nth-child(1){ width:260px; height:260px; animation-delay:0s; }
+.ring:nth-child(2){ width:460px; height:460px; animation-delay:.7s; }
+.ring:nth-child(3){ width:660px; height:660px; animation-delay:1.4s; }
+.ring:nth-child(4){ width:860px; height:860px; animation-delay:2.1s; border-color:rgba(192,57,43,.04); }
+@keyframes ringPulse { 0%,100%{opacity:.4;transform:scale(1);}50%{opacity:1;transform:scale(1.03);} }
+.vline { position:absolute; width:1px; height:55vh; background:linear-gradient(to bottom,transparent,var(--red),transparent); opacity:.15; animation:vlineFade 3s ease-in-out infinite alternate; }
+.vline1 { left:11%; top:22%; }
+.vline2 { right:11%; top:22%; animation-delay:1.5s; }
+@keyframes vlineFade { from{opacity:.08;}to{opacity:.25;} }
+.hero-inner { text-align:center; max-width:680px; position:relative; z-index:2; }
+.hero-badge { display:inline-flex; align-items:center; gap:.6rem; font-size:.68rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--red); border:1px solid rgba(192,57,43,.3); padding:.45rem 1.2rem; border-radius:100px; margin-bottom:3rem; opacity:0; transform:translateY(16px); animation:fadeUp .7s .2s forwards; }
+.bdot { width:6px; height:6px; background:var(--red); border-radius:50%; animation:blink 1.8s infinite; }
+@keyframes blink { 0%,100%{opacity:1;}50%{opacity:.15;} }
+.hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,13vw,10rem); font-weight:300; line-height:.95; letter-spacing:-.02em; opacity:0; transform:translateY(28px); animation:fadeUp .9s .35s forwards; }
+.hero-title em { font-style:italic; color:var(--red); display:block; }
+.hline { width:0; height:2px; background:var(--red); margin:.7rem auto 0; border-radius:2px; animation:drawLine .8s .95s forwards; }
+@keyframes drawLine { to{ width:56px; } }
+.hero-sub { margin-top:2rem; font-size:1rem; font-weight:300; color:var(--ink2); line-height:1.85; max-width:400px; margin-inline:auto; margin-top:2rem; opacity:0; transform:translateY(16px); animation:fadeUp .7s .65s forwards; }
+.hero-date { margin-top:2rem; display:inline-block; font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--ink3); border-top:1px solid var(--line); padding-top:.8rem; opacity:0; animation:fadeUp .6s .85s forwards; }
+.scroll-hint { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; opacity:0; animation:fadeUp .6s 1.2s forwards; }
+.scroll-hint span { font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink3); }
+.scroll-track { width:1px; height:44px; background:var(--line); position:relative; overflow:hidden; border-radius:1px; }
+.scroll-track::after { content:''; position:absolute; top:-50%; left:0; width:100%; height:50%; background:var(--red); border-radius:1px; animation:trackSlide 1.8s ease-in-out infinite; }
+@keyframes trackSlide { 0%{top:-50%;}100%{top:150%;} }
+
+/* DIVIDER */
+.divider { position:relative; z-index:1; display:flex; align-items:center; gap:1.2rem; padding:0 clamp(2rem,8vw,8rem); }
+.dl { flex:1; height:1px; background:var(--line); }
+.dd { width:5px; height:5px; background:var(--red); border-radius:50%; flex-shrink:0; }
+.dt { font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; }
+
+/* SECTIONS */
+.sections { position:relative; z-index:1; }
+.section { padding:5rem clamp(2rem,8vw,8rem); border-bottom:1px solid var(--line); display:grid; grid-template-columns:1fr 2fr; gap:3rem 6rem; align-items:start; opacity:0; transform:translateY(36px); transition:opacity .75s,transform .75s; }
+.section.visible { opacity:1; transform:none; }
+.section:nth-child(even) { background:var(--off); }
+.slabel { position:sticky; top:6rem; }
+.snum { font-size:.62rem; letter-spacing:.22em; text-transform:uppercase; color:var(--red); font-weight:500; margin-bottom:.5rem; }
+.stitle { font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,2.8vw,2.3rem); font-weight:300; line-height:1.2; }
+.sicon { margin-top:1.2rem; width:46px; height:46px; }
+.sbody p { font-size:.96rem; font-weight:300; line-height:1.9; color:var(--ink2); margin-bottom:1.2rem; }
+.sbody p:last-child { margin-bottom:0; }
+.sbody strong { color:var(--ink); font-weight:500; }
+.sbody a { color:var(--red); text-decoration:none; border-bottom:1px solid rgba(192,57,43,.3); transition:border-color .2s; }
+.sbody a:hover { border-color:var(--red); }
+.pull { border-left:2px solid var(--red); padding:1rem 1.5rem; margin:1.4rem 0; background:var(--red-s); border-radius:0 6px 6px 0; }
+.pull p { font-family:'Cormorant Garamond',serif; font-size:1.12rem !important; font-style:italic; color:var(--ink) !important; line-height:1.65 !important; margin:0 !important; }
+.rules { list-style:none; margin-top:.4rem; }
+.rules li { display:flex; gap:1rem; align-items:flex-start; padding:.9rem 0; border-bottom:1px solid var(--line); font-size:.94rem; font-weight:300; color:var(--ink2); line-height:1.65; opacity:0; transform:translateX(-14px); transition:opacity .5s,transform .5s; }
+.rules li.visible { opacity:1; transform:none; }
+.rules li:last-child { border-bottom:none; }
+.ri { flex-shrink:0; width:26px; height:26px; margin-top:3px; }
+@media(max-width:768px){ .section{grid-template-columns:1fr;gap:1.8rem;} .slabel{position:static;} }
+
+/* SOCIAL STRIP */
+.sstrip { position:relative; z-index:1; padding:3rem clamp(2rem,8vw,8rem); background:var(--dark2); display:flex; flex-wrap:wrap; gap:2rem; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.06); }
+.sstrip-title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:300; color:#fff; line-height:1.2; }
+.sstrip-title span { color:#7eb8d4; font-style:italic; }
+.soclinks { display:flex; flex-wrap:wrap; gap:.8rem; }
+.sb { display:inline-flex; align-items:center; gap:.6rem; padding:.6rem 1.3rem; border-radius:100px; border:1px solid rgba(255,255,255,.15); color:rgba(255,255,255,.7); text-decoration:none; font-size:.78rem; font-weight:400; letter-spacing:.04em; transition:background .25s,border-color .25s,color .25s; }
+.sb:hover { background:var(--red); border-color:var(--red); color:#fff; }
+.sb svg { width:15px; height:15px; flex-shrink:0; }
+
+/* QUOTE BANNER */
+.qbanner { position:relative; z-index:1; background:var(--ink); overflow:hidden; padding:5rem clamp(2rem,8vw,8rem); }
+.qbanner::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--red); }
+.qbanner::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(192,57,43,.08) 0%, transparent 70%); pointer-events:none; }
+.qbanner-inner { position:relative; max-width:780px; }
+.qmark { font-family:'Cormorant Garamond',serif; font-size:8rem; line-height:.6; color:var(--red); opacity:.35; margin-bottom:.5rem; user-select:none; }
+.qtext { font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,3.5vw,2.4rem); font-weight:300; font-style:italic; color:#fff; line-height:1.45; margin-bottom:1.5rem; }
+.qsig { font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.28); }
+
+/* CONTACT BLOCK */
+.contact-block { position:relative; z-index:1; display:grid; grid-template-columns:1fr 2fr; gap:4rem 6rem; padding:5rem clamp(2rem,8vw,8rem); background:var(--dark2); align-items:start; }
+.contact-eyebrow { font-size:.62rem; letter-spacing:.22em; text-transform:uppercase; color:var(--red); font-weight:500; margin-bottom:.6rem; }
+.contact-title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3.5vw,3rem); font-weight:300; color:#fff; line-height:1.15; margin-bottom:1rem; }
+.contact-title em { font-style:italic; color:#7eb8d4; }
+.contact-sub { font-size:.9rem; font-weight:300; color:rgba(255,255,255,.35); line-height:1.8; }
+.contact-cards { display:flex; flex-direction:column; gap:1rem; }
+.ccard { display:flex; align-items:center; gap:1.2rem; padding:1.2rem 1.5rem; border-radius:10px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); text-decoration:none; transition:background .25s, border-color .25s, transform .2s; }
+.ccard:hover { background:rgba(192,57,43,.1); border-color:rgba(192,57,43,.35); transform:translateX(5px); }
+.ccard-icon { width:38px; height:38px; border-radius:8px; background:rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:rgba(255,255,255,.55); }
+.ccard-icon svg { width:18px; height:18px; }
+.ccard-text { flex:1; display:flex; flex-direction:column; gap:.2rem; }
+.ccard-label { font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.28); }
+.ccard-val { font-size:.9rem; font-weight:400; color:rgba(255,255,255,.8); }
+.ccard-arrow { width:16px; height:16px; color:rgba(255,255,255,.18); flex-shrink:0; transition:color .2s, transform .2s; }
+.ccard:hover .ccard-arrow { color:var(--red); transform:translateX(3px); }
+@media(max-width:768px){ .contact-block{grid-template-columns:1fr; gap:2.5rem;} }
+
+/* FOOTER */
+.footer { position:relative; z-index:1; padding:6rem clamp(2rem,8vw,8rem) 4rem; background:var(--dark); color:#fff; overflow:hidden; text-align:center; }
+.footer::before { content:'PC'; position:absolute; font-family:'Cormorant Garamond',serif; font-size:clamp(8rem,24vw,28rem); font-weight:300; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.04); left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; user-select:none; line-height:1; }
+.footer::after { content:''; position:absolute; top:0; left:10%; right:10%; height:1px; background:linear-gradient(to right,transparent,var(--red),transparent); }
+.feyebrow { font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.25); margin-bottom:1.4rem; }
+.ftitle { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,6vw,5.5rem); font-weight:300; line-height:1.1; margin-bottom:1.5rem; position:relative; }
+.ftitle em { color:#7eb8d4; font-style:italic; }
+.fsub { font-size:.9rem; font-weight:300; color:rgba(255,255,255,.4); line-height:1.9; max-width:480px; margin:0 auto 3rem; }
+.fgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:2rem; max-width:760px; margin:0 auto 3.5rem; border-top:1px solid rgba(255,255,255,.07); padding-top:2.5rem; text-align:left; }
+.fglabel { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.22); margin-bottom:.5rem; }
+.fgval { font-size:.88rem; font-weight:300; color:rgba(255,255,255,.55); line-height:1.7; }
+.fgval a { color:#7eb8d4; text-decoration:none; }
+.fgval a:hover { text-decoration:underline; }
+.flegal { font-size:.7rem; letter-spacing:.03em; color:rgba(255,255,255,.18); line-height:2.1; border-top:1px solid rgba(255,255,255,.06); padding-top:2rem; }
+
+@keyframes fadeUp { to{ opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"><div class="cur-r" id="cr"></div><div class="cur-d" id="cd"></div></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-rings"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+  <div class="vline vline1"></div><div class="vline vline2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="bdot"></span>Неофициальный фан-проект</div>
+    <h1 class="hero-title">Project<em>Classic</em></h1>
+    <div class="hline"></div>
+    <p class="hero-sub">Пользовательское соглашение — прочтите перед тем, как начать играть</p>
+    <span class="hero-date">16 марта 2026 года</span>
+  </div>
+  <div class="scroll-hint"><span>Читать далее</span><div class="scroll-track"></div></div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dd"></div><span class="dt">Соглашение</span><div class="dd"></div><div class="dl"></div></div>
+
+<!-- SECTIONS -->
+<div class="sections">
+
+  <div class="section">
+    <div class="slabel">
+      <p class="snum">01</p><h2 class="stitle">О проекте</h2>
+      <svg class="sicon" viewBox="0 0 46 46" fill="none"><circle cx="23" cy="23" r="19" stroke="#c0392b" stroke-width="1.3"/><path d="M15 23C15 17.5 18.7 13 23 13C27.3 13 31 17.5 31 23C31 28.5 27.3 33 23 33" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/><circle cx="23" cy="23" r="2.5" fill="#c0392b"/><path d="M23 33V37" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </div>
+    <div class="sbody">
+      <div class="pull"><p>Этот проект родился из ностальгии и искреннего желания сохранить игровой опыт, дорогой тысячам игроков.</p></div>
+      <p>Project Classic — некоммерческий фан-проект, созданный с любовью к игре <a href="https://standoff2.com/en" target="_blank">Standoff&nbsp;2</a> версии 0.11.2. Наша цель проста: подарить сообществу возможность снова ощутить атмосферу той самой классической версии игры, которую многие из нас помнят и любят.</p>
+      <p>Project Classic целиком создан энтузиастами — обычными людьми, которые так же, как и вы, просто хотят играть в любимую игру. Здесь нет корпораций, нет инвесторов, нет коммерческих интересов — только страсть к игре и желание объединить вокруг неё сообщество.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="slabel">
+      <p class="snum">02</p><h2 class="stitle">Мы не связаны с Axlebolt</h2>
+      <svg class="sicon" viewBox="0 0 46 46" fill="none"><rect x="7" y="7" width="32" height="32" rx="4" stroke="#c0392b" stroke-width="1.3"/><path d="M15 23H31" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/><path d="M23 15V23" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/><circle cx="33" cy="13" r="5" fill="white" stroke="#c0392b" stroke-width="1.3"/><path d="M31 13L32.5 14.5L35.5 12" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="sbody">
+      <p>Project Classic является <strong>полностью неофициальным и независимым</strong> проектом. Мы никак не аффилированы с компанией <a href="https://axlebolt.com/en" target="_blank">Axlebolt</a> — разработчиком оригинальной игры Standoff&nbsp;2 — и не имеем никаких деловых или юридических отношений с ней.</p>
+      <p>Все права на оригинальную игру <a href="https://standoff2.com/en" target="_blank">Standoff&nbsp;2</a>, включая товарные знаки, логотипы, игровые механики, дизайн персонажей, карт и оружия, а также любую другую интеллектуальную собственность, принадлежат компании <a href="https://axlebolt.com/en" target="_blank">Axlebolt</a> и/или её партнёрам. Project Classic не претендует ни на какие из этих прав.</p>
+      <div class="pull"><p>Проект — дань уважения оригиналу. Поддержите Standoff&nbsp;2 в <a href="https://play.google.com/store/apps/details?id=com.axlebolt.standoff2" target="_blank">Google Play</a> или <a href="https://apps.apple.com/app/standoff-2/id1252194777" target="_blank">App Store</a>.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="slabel">
+      <p class="snum">03</p><h2 class="stitle">Некоммерческий характер</h2>
+      <svg class="sicon" viewBox="0 0 46 46" fill="none"><circle cx="23" cy="23" r="16" stroke="#c0392b" stroke-width="1.3"/><path d="M23 13V17M23 29V33" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/><path d="M18 20C18 17.8 20.2 17 23 17C25.8 17 28 18.2 28 20.5C28 23 25 24 23 24C20.5 24 18 25.2 18 27.5C18 29.8 20.2 31 23 31C25.8 31 28 30.2 28 28" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/><line x1="10" y1="10" x2="36" y2="36" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </div>
+    <div class="sbody">
+      <p>Project Classic создан исключительно в некоммерческих целях и не предназначен для получения прибыли. Мы не продаём игровой контент, не взимаем плату за доступ к серверу и не монетизируем проект иным образом.</p>
+      <p>Если в проекте предусмотрена возможность добровольных пожертвований, они направляются исключительно на покрытие технических расходов: аренду серверов, домены и другую инфраструктуру, необходимую для поддержания работы проекта.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="slabel">
+      <p class="snum">04</p><h2 class="stitle">Правила участия</h2>
+      <svg class="sicon" viewBox="0 0 46 46" fill="none"><path d="M23 7L37 13V25C37 32 30.5 38 23 41C15.5 38 9 32 9 25V13Z" stroke="#c0392b" stroke-width="1.3" stroke-linejoin="round"/><path d="M17 23L21 27L29 19" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="sbody">
+      <p>Мы хотим, чтобы Project Classic был дружелюбным и честным местом для всех. Присоединяясь к проекту, вы соглашаетесь соблюдать следующие правила:</p>
+      <ul class="rules" id="rules">
+        <li><svg class="ri" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#c0392b" stroke-width="1.2"/><path d="M9.5 13L12 15.5L17 10.5" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Уважайте других игроков — оскорбления, угрозы и травля недопустимы</li>
+        <li><svg class="ri" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#c0392b" stroke-width="1.2"/><path d="M9.5 13L12 15.5L17 10.5" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Не используйте читы, боты, макросы или программы, дающие нечестное преимущество</li>
+        <li><svg class="ri" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#c0392b" stroke-width="1.2"/><path d="M9.5 13L12 15.5L17 10.5" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Не эксплуатируйте баги — сообщайте о них администрации</li>
+        <li><svg class="ri" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#c0392b" stroke-width="1.2"/><path d="M9.5 13L12 15.5L17 10.5" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Не распространяйте спам и рекламу сторонних ресурсов в чатах</li>
+        <li><svg class="ri" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#c0392b" stroke-width="1.2"/><path d="M9.5 13L12 15.5L17 10.5" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Не пытайтесь получить несанкционированный доступ к серверам или чужим аккаунтам</li>
+        <li><svg class="ri" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#c0392b" stroke-width="1.2"/><path d="M9.5 13L12 15.5L17 10.5" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Не продавайте, не покупайте и не передавайте свой аккаунт третьим лицам</li>
+        <li><svg class="ri" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#c0392b" stroke-width="1.2"/><path d="M9.5 13L12 15.5L17 10.5" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Не распространяйте контент, пропагандирующий насилие или дискриминацию</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="slabel">
+      <p class="snum">05</p><h2 class="stitle">Ваш аккаунт</h2>
+      <svg class="sicon" viewBox="0 0 46 46" fill="none"><circle cx="23" cy="17" r="7" stroke="#c0392b" stroke-width="1.3"/><path d="M9 39C9 31 15.3 25 23 25C30.7 25 37 31 37 39" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </div>
+    <div class="sbody">
+      <p>Регистрируясь в Project Classic, вы создаёте персональный аккаунт. Каждый игрок вправе иметь только один аккаунт — если нам станет известно о нескольких аккаунтах одного лица, все они могут быть заблокированы.</p>
+      <p>Вы несёте полную ответственность за безопасность своего аккаунта. Храните пароль в надёжном месте и никому его не передавайте. Если вы подозреваете, что кто-то получил доступ к вашему аккаунту — незамедлительно свяжитесь с администрацией.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="slabel">
+      <p class="snum">06</p><h2 class="stitle">Персональные данные</h2>
+      <svg class="sicon" viewBox="0 0 46 46" fill="none"><rect x="9" y="17" width="28" height="22" rx="3" stroke="#c0392b" stroke-width="1.3"/><path d="M15 17V13C15 9.7 18.6 7 23 7C27.4 7 31 9.7 31 13V17" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/><circle cx="23" cy="28" r="3" fill="#c0392b"/><path d="M23 31V34" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </div>
+    <div class="sbody">
+      <p>Для работы проекта нам необходимо собирать минимальный набор данных: имя пользователя, адрес электронной почты и технические данные (IP-адрес, информация об устройстве). Эти данные используются исключительно для обеспечения работы сервера и безопасности аккаунтов.</p>
+      <p>Мы не продаём и не передаём ваши данные третьим лицам, за исключением случаев, прямо предусмотренных действующим законодательством.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="slabel">
+      <p class="snum">07</p><h2 class="stitle">Ограничение ответственности</h2>
+      <svg class="sicon" viewBox="0 0 46 46" fill="none"><path d="M23 7L39 35H7Z" stroke="#c0392b" stroke-width="1.3" stroke-linejoin="round"/><path d="M23 19V27" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/><circle cx="23" cy="31.5" r="1.5" fill="#c0392b"/></svg>
+    </div>
+    <div class="sbody">
+      <p>Project Classic предоставляется «как есть». Администрация прилагает все усилия для обеспечения стабильной работы серверов, однако не гарантирует их бесперебойную доступность.</p>
+      <p>Администрация не несёт ответственности за временную недоступность серверов, возможную потерю игровых данных, действия других игроков, а также за любой ущерб, прямо или косвенно возникший в результате использования проекта.</p>
+      <p>Вы используете Project Classic осознанно, понимая его неофициальный статус и принимая все связанные с этим риски.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="slabel">
+      <p class="snum">08</p><h2 class="stitle">Изменение условий</h2>
+      <svg class="sicon" viewBox="0 0 46 46" fill="none"><path d="M33 13C33 13 37 17.5 37 23C37 30.7 30.7 37 23 37C15.3 37 9 30.7 9 23C9 15.3 15.3 9 23 9C26.2 9 29.1 10.1 31.4 12" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round"/><path d="M33 7L33 14L26 14" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 23L22 26L27 20" stroke="#c0392b" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="sbody">
+      <p>Администрация оставляет за собой право изменять настоящее соглашение. Актуальная версия всегда доступна на официальном ресурсе проекта.</p>
+      <p>Продолжение использования проекта после публикации изменений означает ваше согласие с обновлёнными условиями. По всем вопросам обращайтесь к администрации через официальные каналы.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- QUOTE BANNER -->
+<div class="qbanner">
+  <div class="qbanner-inner">
+    <div class="qmark">"</div>
+    <p class="qtext">Мы не просто запускаем сервер —<br/>мы возрождаем эпоху. Ту самую,<br/>где всё только начиналось.</p>
+    <span class="qsig">— Команда Project Classic</span>
+  </div>
+</div>
+
+<!-- CONTACT BLOCK -->
+<div class="contact-block">
+  <div class="contact-left">
+    <p class="contact-eyebrow">Связь с нами</p>
+    <h3 class="contact-title">Всегда на<br/><em>связи</em></h3>
+    <p class="contact-sub">Есть вопросы? Нашли баг?<br/>Просто хотите написать — мы открыты.</p>
+  </div>
+  <div class="contact-right">
+    <div class="contact-cards">
+      <a class="ccard" href="https://t.me/ProjectClassic" target="_blank">
+        <div class="ccard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21.5 2.5 2 9.5l7 2 2 7 3-4 5 4 2.5-16z"/><path d="M9 11.5l9-6"/></svg>
+        </div>
+        <div class="ccard-text">
+          <span class="ccard-label">Telegram-канал</span>
+          <span class="ccard-val">@ProjectClassic</span>
+        </div>
+        <svg class="ccard-arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="ccard" href="https://t.me/ProjectClassicSupport" target="_blank">
+        <div class="ccard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="ccard-text">
+          <span class="ccard-label">Техническая поддержка</span>
+          <span class="ccard-val">@ProjectClassicSupport</span>
+        </div>
+        <svg class="ccard-arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="ccard" href="mailto:ProjectClassic@gmail.com">
+        <div class="ccard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        </div>
+        <div class="ccard-text">
+          <span class="ccard-label">Электронная почта</span>
+          <span class="ccard-val">ProjectClassic@gmail.com</span>
+        </div>
+        <svg class="ccard-arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL STRIP -->
+<div class="sstrip">
+  <div><p class="sstrip-title">Мы в<br/><span>Telegram</span></p></div>
+  <div class="soclinks">
+    <a class="sb" href="https://t.me/ProjectClassic" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21.5 2.5 2 9.5l7 2 2 7 3-4 5 4 2.5-16z"/><path d="M9 11.5l9-6"/></svg>
+      Канал @ProjectClassic
+    </a>
+    <a class="sb" href="https://t.me/ProjectClassicSupport" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Поддержка @ProjectClassicSupport
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p class="feyebrow">Project Classic — 2026</p>
+  <h2 class="ftitle">Приятной<br/><em>игры!</em></h2>
+  <p class="fsub">По всем вопросам обращайтесь к администрации через официальные каналы. Мы всегда рады помочь.</p>
+  <div class="fgrid">
+    <div><p class="fglabel">Дата соглашения</p><p class="fgval">16 марта 2026</p></div>
+    <div><p class="fglabel">Разработчик оригинала</p><p class="fgval"><a href="https://axlebolt.com/en" target="_blank">Axlebolt Ltd</a></p></div>
+    <div><p class="fglabel">Сайт игры</p><p class="fgval"><a href="https://standoff2.com/en" target="_blank">standoff2.com</a></p></div>
+    <div><p class="fglabel">Написать нам</p><p class="fgval"><a href="mailto:ProjectClassic@gmail.com">ProjectClassic@gmail.com</a></p></div>
+  </div>
+  <p class="flegal">
+    Project Classic — неофициальный фан-проект, не аффилированный с Axlebolt Ltd.<br/>
+    STANDOFF® и AXLEBOLT® являются зарегистрированными товарными знаками их владельцев.<br/>
+    Все права на оригинальную игру Standoff 2 принадлежат компании Axlebolt Ltd.<br/>
+    &copy; Project Classic, 2026
+  </p>
+</footer>
+
+<script>
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cd.style.left=mx+'px';cd.style.top=my+'px';rx+=(mx-rx)*.11;ry+=(my-ry)*.11;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(a);})();
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    e.target.classList.add('visible');
+    e.target.querySelectorAll('.rules li').forEach((li,i)=>setTimeout(()=>li.classList.add('visible'),140*i+200));
+  });
+},{threshold:.08});
+document.querySelectorAll('.section').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
